@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Client } from 'src/clients/client.entity'
+import { Entrepreneur } from 'src/entrepreneurs/entrepreneur.entity'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Project {
@@ -20,9 +22,9 @@ export class Project {
   @Column()
   end_date: Date
 
-  @Column()
-  assigned_client: string
+  @OneToOne(() => Client, (client) => client.id)
+  client_id: Client
 
-  @Column()
-  assigned_entrepreneur: string
+  @OneToOne(() => Entrepreneur, (entrepreneur) => entrepreneur.id)
+  entrepreneur_id: Entrepreneur
 }

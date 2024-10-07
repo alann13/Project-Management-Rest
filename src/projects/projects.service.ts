@@ -3,24 +3,34 @@ import { CreateProjectDto } from './dto/create-project.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Project } from './project.entity'
+import { v4 as uuid } from 'uuid'
 
 @Injectable()
 export class ProjectsService {
   constructor(@InjectRepository(Project) private repo: Repository<Project>) {}
 
   getAllProjects() {
-    return {
-      msg: 'yoyo',
-    }
+    return 'getting it all'
   }
 
-  getOneProject() {}
-
-  createProject(createProjectDto: CreateProjectDto) {
-    console.log(createProjectDto)
+  getOneProject() {
+    return 'Here is your one project'
   }
 
-  updateProject() {}
+  async createProject(createProjectDto: CreateProjectDto) {
+    const newProject = this.repo.create({
+      id: uuid(),
+      ...createProjectDto,
+    })
 
-  deleteProject() {}
+    return await this.repo.save(newProject)
+  }
+
+  updateProject() {
+    return 'updating a project'
+  }
+
+  deleteProject() {
+    return 'deleted'
+  }
 }

@@ -1,11 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Project } from 'src/projects/project.entity'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
 @Entity()
 export class Entrepreneur {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
+  @Column({ unique: true })
   email: string
 
   @Column()
@@ -13,4 +14,7 @@ export class Entrepreneur {
 
   @Column()
   address: string
+
+  @OneToMany(() => Project, (project) => project.id)
+  projects: Project[]
 }
